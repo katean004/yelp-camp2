@@ -42,10 +42,14 @@ app.get("/campgrounds/new", (req, res) => {
 });
 
 // post new campground to all campgrounds route
-app.post("/campgrounds", async (req, res) => {
-  const campground = new Campground(req.body.campground);
-  await campground.save();
-  res.redirect(`/campgrounds/${campground._id}`);
+app.post("/campgrounds", async (req, res, next) => {
+  try {
+    const campground = new Campground(req.body.campground);
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+  } catch (e) {
+    next(e);
+  }
 });
 
 // get specific campground route
@@ -62,8 +66,8 @@ app.get("/campgrounds/:id/edit", async (req, res) => {
 
 // update campground info route
 app.put("/campgrounds/:id", async (req, res) => {
-  const { id } = req.params;
-  const campground = await Campground.findByIdAndUpdate(id, {
+  // const { id } = req.params;
+  const campground = await Campground.findByIdAndUpdate(req.params.id, {
     ...req.body.campground
   });
   res.redirect(`/campgrounds/${campground._id}`);
@@ -71,9 +75,13 @@ app.put("/campgrounds/:id", async (req, res) => {
 
 // delete campground post route
 app.delete("/campgrounds/:id", async (req, res) => {
-  const { id } = req.params;
-  await Campground.findByIdAndDelete(id);
+  // const { id } = req.params;
+  await Campground.findByIdAndDelete(req.params.id);
   res.redirect("/campgrounds");
+});
+
+app.use((err, req, res, next) => {
+  console.log("Something went wrong!!!");
 });
 
 app.listen(3000, () => {

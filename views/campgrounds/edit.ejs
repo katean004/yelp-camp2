@@ -3,7 +3,12 @@
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <div class="col-6 offset-3">
-    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+    <form
+      action="/campgrounds/<%= campground._id %>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
       <!-- change title -->
       <div class="mb-3">
         <label class="form-label" for="title">Enter Campground Title:</label>
@@ -13,7 +18,9 @@
           name="campground[title]"
           value="<%= campground.title %>"
           class="form-control"
+          required
         />
+        <div class="invalid-feedback">Please enter campground title.</div>
       </div>
       <!-- change location -->
       <div class="mb-3">
@@ -26,7 +33,9 @@
           name="campground[location]"
           value="<%= campground.location %>"
           class="form-control"
+          required
         />
+        <div class="invalid-feedback">Please enter campground location.</div>
       </div>
       <!-- change price -->
       <div class="mb-3">
@@ -37,7 +46,9 @@
           name="campground[price]"
           value="<%= campground.price %>"
           class="form-control"
+          required
         />
+        <div class="invalid-feedback">Please enter campground price.</div>
       </div>
       <!-- change image url -->
       <div class="mb-3">
@@ -48,7 +59,11 @@
           name="campground[image]"
           value="<%= campground.image %>"
           class="form-control"
+          required
         />
+        <div class="invalid-feedback">
+          Please enter campground image in url format.
+        </div>
       </div>
       <!-- change description -->
       <div class="mb-3">
@@ -60,7 +75,11 @@
           id="description"
           name="campground[description]"
           style="height: 100px"
+          required
         >
+        <div class="invalid-feedback">
+          Please enter campground description.
+        </div>
 <%= campground.description %> </textarea
         >
       </div>
