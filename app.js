@@ -29,6 +29,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 // method override for put and patch reqs
 app.use(methodOverride("_method"));
+// serve public directory
+app.use(express.static(path.join(__dirname, "public")));
 
 // campground routes
 app.use("/campgrounds", campgroundRoutes);
