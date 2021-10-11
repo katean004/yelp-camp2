@@ -1,7 +1,7 @@
 <% layout("layouts/boilerplate") %>
 
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-6">
     <div class="card mb-3">
       <img
         src="<%= campground.image %>"
@@ -33,5 +33,31 @@
         </li>
       </ul>
     </div>
+  </div>
+  <div class="col-6">
+    <h2>Leave a Review</h2>
+    <form action="" class="mb-3">
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating:</label>
+        <input
+          type="range"
+          name="review[rating]"
+          id="rating"
+          min="1"
+          max="5"
+          class="form-range"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="body" class="form-label">Review:</label>
+        <textarea
+          name="review[body]"
+          id="body"
+          style="height: 100px"
+          class="form-control"
+        ></textarea>
+      </div>
+      <button class="btn btn-success">Add Review</button>
+    </form>
   </div>
 </div>
