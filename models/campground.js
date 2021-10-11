@@ -20,6 +20,7 @@ const CampgroundSchema = new Schema({
 });
 
 // mongoose middleware to delete reviews
+// only runs if findByIdAndDelete() method is ran
 CampgroundSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
     // delete all reviews where id is in the document we just deleted
