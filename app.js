@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
+const session = require("express-session");
+const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
 
@@ -21,6 +23,7 @@ db.once("open", () => {
 // express rest routes
 const app = express();
 
+// ejs engine template setup
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -31,6 +34,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 // serve public directory
 app.use(express.static(path.join(__dirname, "public")));
+// express session setup
+const sessionConfig = {
+  secret: "notgoodsecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    // cookie expires in a week
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+};
+app.use(session(sessionConfig));
+app.use(flash());
+
+// flash middleware allows access to flash messages in local variables
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 // campground routes
 app.use("/campgrounds", campgroundRoutes);
