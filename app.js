@@ -13,6 +13,7 @@ const User = require("./models/user");
 // routes
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
+const userRoutes = require("./routes/users");
 
 // mongoose connection setup
 mongoose.connect("mongodb://localhost:27017/camps");
@@ -75,10 +76,10 @@ app.get("/fakeuser", async (req, res) => {
   res.send(newUser);
 });
 
-// campground routes
+// use routes
 app.use("/campgrounds", campgroundRoutes);
-// review routes
 app.use("/campgrounds/:id/reviews", reviewRoutes);
+app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
