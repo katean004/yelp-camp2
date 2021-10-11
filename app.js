@@ -29,6 +29,24 @@ app.use(express.urlencoded({ extended: true }));
 // method override for put and patch reqs
 app.use(methodOverride("_method"));
 
+// joi schema serverside validation middleware
+const validateCampground = (req, res, next) => {
+  const campgroundSchema = Joi.object({
+    campground: Joi.object({
+      title: Joi.string().required(),
+      price: Joi.number().required().min(0),
+      image: Joi.string().required(),
+      location: Joi.string().required(),
+      description: Joi.string().required()
+    }).required()
+  });
+  const { error } = campgroundSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(el => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else next();
+};
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -50,24 +68,8 @@ app.get("/campgrounds/new", (req, res) => {
 // post new campground to all campgrounds route
 app.post(
   "/campgrounds",
+  validateCampground,
   catchAsync(async (req, res, next) => {
-    // if (!req.body.campground) throw new ExpressError("Invalid Campground Data", 400);
-    // joi serverside validation schema
-    const campgroundSchema = Joi.object({
-      campground: Joi.object({
-        title: Joi.string().required(),
-        price: Joi.number().required().min(0),
-        image: Joi.string().required(),
-        location: Joi.string().required(),
-        description: Joi.string().required()
-      }).required()
-    });
-    const { error } = campgroundSchema.validate(req.body);
-    if (error) {
-      const msg = error.details.map(el => el.message).join(",");
-      throw new ExpressError(msg, 400);
-    }
-
     const campground = new Campground(req.body.campground);
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`);
@@ -95,6 +97,7 @@ app.get(
 // update campground info route
 app.put(
   "/campgrounds/:id",
+  validateCampground,
   catchAsync(async (req, res) => {
     // const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(req.params.id, {
