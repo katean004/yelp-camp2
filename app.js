@@ -6,6 +6,9 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
 
 // routes
 const campgroundRoutes = require("./routes/campgrounds");
@@ -49,11 +52,27 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+// passport setup
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+// serialization is how to store user in session
+passport.serializeUser(User.serializeUser());
+// deserialization is how to store user out of session
+passport.deserializeUser(User.deserializeUser());
+
 // flash middleware allows access to flash messages in local variables
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
+});
+
+// test auth
+app.get("/fakeuser", async (req, res) => {
+  const user = new User({ email: "colt@gmail.com", username: "colty" });
+  const newUser = await User.register(user, "password123");
+  res.send(newUser);
 });
 
 // campground routes
