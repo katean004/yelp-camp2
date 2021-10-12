@@ -8,6 +8,10 @@ const CampgroundSchema = new Schema({
   price: Number,
   description: String,
   location: String,
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   // store array of review objectIds in campground model
   // references objectid from review model
   // one to many relationship

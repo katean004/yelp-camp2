@@ -20,11 +20,12 @@ const seedDB = async () => {
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 50 + 10);
     const camp = new Campground({
+      author: "6164be4e6372c210854ccb16",
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       image: "https://source.unsplash.com/collection/483251",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt fuga repellat dolorum illum quia dolor architecto magnam, aspernatur nihil odio error, facilis ratione corrupti adipisci eaque repellendus aliquid accusantium quaerat.",
+        "Wilderness Lakes Resort is a flat, 80-acre RV Resort in California with fishing canals that weave throughout the park. As a centrally-located RV camp, it is close to shopping, hospitals and freeways in California's Los Angeles region. The surrounding area has been changing quite dramatically with housing projects on two sides and dairy farms on the other.",
       price
     });
     await camp.save();
