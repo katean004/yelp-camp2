@@ -1,19 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
-const { isLoggedIn } = require("../middleware");
-const ExpressError = require("../utils/ExpressError");
+const { validateCampground, isLoggedIn, isAuthor } = require("../middleware");
 const Campground = require("../models/campground");
-const { campgroundSchema } = require("../joiSchemas");
-
-// joi schema serverside campground validation middleware
-const validateCampground = (req, res, next) => {
-  const { error } = campgroundSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map(el => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else next();
-};
 
 // all campgrounds route
 router.get(
@@ -50,7 +39,6 @@ router.get(
     const campground = await Campground.findById(req.params.id)
       .populate("reviews")
       .populate("author");
-    console.log(campground);
     if (!campground) {
       req.flash("error", "campground not found");
       res.redirect("/campgrounds");
@@ -64,14 +52,14 @@ router.get(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+    const { id } = req.params;
+    const campground = await Campground.findById(id);
     if (!campground) {
       req.flash("error", "campground not found");
       res.redirect("/campgrounds");
-    } else {
-      res.render("campgrounds/edit", { campground });
-    }
+    } else res.render("campgrounds/edit", { campground });
   })
 );
 
@@ -79,6 +67,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isAuthor,
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -94,8 +83,10 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const { id } = req.params;
+
     await Campground.findByIdAndDelete(id);
     req.flash("success", "Successfully deleted campground");
     res.redirect("/campgrounds");

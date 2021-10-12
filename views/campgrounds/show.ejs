@@ -18,8 +18,9 @@
           Submitted by <%= campground.author.username %>
         </li>
         <li class="list-group-item">$<%= campground.price %>/night</li>
+
+        <% if(currentUser && campground.author.equals(currentUser._id)) { %>
         <li class="list-group-item">
-          <a href="/campgrounds" class="btn btn-primary">All Campgrounds</a>
           <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-info"
             >Edit</a
           >
@@ -34,6 +35,7 @@
             </button>
           </form>
         </li>
+        <% } %>
       </ul>
     </div>
   </div>
