@@ -1,12 +1,11 @@
 const express = require("express");
 // express router has separate params so need to merge
 const router = express.Router({ mergeParams: true });
-const Campground = require("../models/campground");
-const Review = require("../models/review");
 
 const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 const catchAsync = require("../utils/catchAsync");
 
+// review controllers
 const reviewsController = require("../controllers/reviews");
 
 // post new review to specific campground route

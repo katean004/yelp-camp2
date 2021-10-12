@@ -2,29 +2,30 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const catchAsync = require("../utils/catchAsync");
-const User = require("../models/user");
 
+// user controllers
 const usersController = require("../controllers/users");
 
-// get register form route
-router.get("/register", usersController.renderRegisterForm);
+router
+  .route("/register")
+  // get register form route
+  .get(usersController.renderRegisterForm)
+  // post register route to create user
+  .post(catchAsync(usersController.registerUser));
 
-// post register route to create user
-router.post("/register", catchAsync(usersController.registerUser));
-
-// get login form route
-router.get("/login", usersController.renderLoginForm);
-
-// log user in route
-// passport middleware with local strategy for user authentication
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    failureFlash: true,
-    failureRedirect: "/login"
-  }),
-  usersController.login
-);
+router
+  .route("/login")
+  // get login form route
+  .get(usersController.renderLoginForm)
+  // user login route
+  // passport middleware with local strategy for user authentication
+  .post(
+    passport.authenticate("local", {
+      failureFlash: true,
+      failureRedirect: "/login"
+    }),
+    usersController.login
+  );
 
 // logout route
 router.get("/logout", usersController.logout);
