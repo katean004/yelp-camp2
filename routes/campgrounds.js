@@ -22,10 +22,6 @@ router
     validateCampground,
     catchAsync(campgroundsController.createCamp)
   );
-// .post(upload.array("image"), (req, res) => {
-//   console.log(req.body, req.files);
-//   res.send("it worked~");
-// });
 
 // multer-storage-cloudinary helps upload files multer is parsing to cloudinary
 
@@ -40,6 +36,7 @@ router
   .put(
     isLoggedIn,
     isAuthor,
+    upload.array("image"),
     validateCampground,
     catchAsync(campgroundsController.editCamp)
   )

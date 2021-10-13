@@ -8,6 +8,7 @@
       method="POST"
       novalidate
       class="validated-form"
+      enctype="multipart/form-data"
     >
       <!-- change title -->
       <div class="mb-3">
@@ -52,8 +53,9 @@
       </div>
       <!-- change image url -->
       <div class="mb-3">
-        <label class="form-label" for="image">Enter Image Url:</label>
-        <input
+        <label class="form-label" for="image">Add Image:</label>
+        <input type="file" name="image" id="image" multiple />
+        <!-- <input
           type="text"
           id="image"
           name="campground[image]"
@@ -63,7 +65,7 @@
         />
         <div class="invalid-feedback">
           Please enter campground image in url format.
-        </div>
+        </div> -->
       </div>
       <!-- change description -->
       <div class="mb-3">
