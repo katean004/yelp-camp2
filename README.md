@@ -21,7 +21,7 @@
 - Cloudinary 
 (Add links later)
 
-## Installation 
+## Dependencies 
 npm install:
 - connect-flash
 - ejs
@@ -34,3 +34,6 @@ npm install:
 - passport
 - passport-local
 - passport-local-mongoose
+- multer
+- cloudinary
+- multer-storage-cloudinary

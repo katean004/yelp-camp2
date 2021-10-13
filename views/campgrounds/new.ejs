@@ -3,7 +3,13 @@
 <div class="row">
   <h1 class="text-center">New Campground</h1>
   <div class="col-6 offset-3">
-    <form action="/campgrounds" method="POST" novalidate class="validated-form">
+    <form
+      action="/campgrounds"
+      method="POST"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
       <!-- title -->
       <div class="mb-3">
         <label class="form-label" for="title">Enter Campground Title:</label>
@@ -50,7 +56,7 @@
         </div>
       </div>
       <!-- image -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label class="form-label" for="image">Enter Image Url:</label>
         <input
           class="form-control"
@@ -62,7 +68,9 @@
         <div class="invalid-feedback">
           Please enter campground image in url format.
         </div>
-      </div>
+      </div> -->
+      <!-- file image -->
+      <input type="file" name="image" id="image" multiple />
       <!-- description -->
       <div class="mb-3">
         <label class="form-label" for="description"

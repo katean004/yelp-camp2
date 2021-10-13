@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const { validateCampground, isLoggedIn, isAuthor } = require("../middleware");
+// multer setup
+const multer = require("multer");
+const { storage, cloudinary } = require("../cloudinary");
+const upload = multer({ storage });
 
 // campgrounds controllers
 const campgroundsController = require("../controllers/campgrounds");
@@ -13,9 +17,17 @@ router
   // post new campground to all campgrounds route
   .post(
     isLoggedIn,
+    // multer parses multipart form data
+    upload.array("image"),
     validateCampground,
-    catchAsync(campgroundsController.create)
+    catchAsync(campgroundsController.createCamp)
   );
+// .post(upload.array("image"), (req, res) => {
+//   console.log(req.body, req.files);
+//   res.send("it worked~");
+// });
+
+// multer-storage-cloudinary helps upload files multer is parsing to cloudinary
 
 // get new campgrounds form route
 router.get("/new", isLoggedIn, campgroundsController.renderNewForm);

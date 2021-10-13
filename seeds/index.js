@@ -23,7 +23,12 @@ const seedDB = async () => {
       author: "6164be4e6372c210854ccb16",
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
-      image: "https://source.unsplash.com/collection/483251",
+      images: [
+        {
+          url: "https://res.cloudinary.com/db8f5rrc6/image/upload/v1634098198/YelpCamp2/n0tnjfkjgwnty4c3bykh.jpg",
+          filename: "YelpCamp2/n0tnjfkjgwnty4c3bykh"
+        }
+      ],
       description:
         "Wilderness Lakes Resort is a flat, 80-acre RV Resort in California with fishing canals that weave throughout the park. As a centrally-located RV camp, it is close to shopping, hospitals and freeways in California's Los Angeles region. The surrounding area has been changing quite dramatically with housing projects on two sides and dairy farms on the other.",
       price
