@@ -72,10 +72,12 @@
 
   <!-- Reviews -->
   <div class="col-6">
-      <!-- Show Campground -->
-      <% if(campground.geometry.coordinates.length) { %> 
-  <div id='map' class="mb-3" style='width: 636px; height: 300px;'></div>
-  <% } %> 
+    <!-- Show Campground -->
+
+    <!-- show map if theres long,lat -->
+    <% if(campground.geometry.coordinates.length) { %> 
+    <div id='map' class="mb-3" style='width: 636px; height: 300px;'></div>
+    <% } %> 
 
     <% if(currentUser) { %>
     <h2>Leave a Review</h2>
@@ -86,7 +88,7 @@
       novalidate
     >
       <div class="mb-0">
-        <!-- starabitly test -->
+        <!-- starabitly -->
         <fieldset class="starability-basic">
           <!-- <legend>Review rating:</legend> -->
           <input
@@ -179,6 +181,7 @@
 <!-- script for mapbox token since showMap.js does not have access to ejs -->
 <script>
   const mapToken = "<%- process.env.MAPBOX_TOKEN %>";
+  // error due to VSC formatting json files incorrectly (ignore)
   const campground = <%-JSON.stringify(campground)%>
 </script>
 
