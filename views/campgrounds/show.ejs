@@ -76,7 +76,7 @@
 
     <!-- show map if theres long,lat -->
     <% if(campground.geometry.coordinates.length) { %> 
-    <div id='map' class="mb-3" style='width: 636px; height: 300px;'></div>
+    <div id='map' class="mb-3" style='width: 600px; height: 300px;'></div>
     <% } %> 
 
     <% if(currentUser) { %>
@@ -154,7 +154,7 @@
 
     <!-- show all reviews -->
     <% for(let review of campground.reviews){ %>
-    <div class="card mb-3">
+    <div class="card mb-3" style="width: 600px;">
       <div class="card-body">
         <h5 class="card-title"><%= review.author.username %></h5>
         <!-- starability -->
