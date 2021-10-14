@@ -2,9 +2,7 @@
 <link rel="stylesheet" href="/stylesheets/stars.css" />
 
 <div class="row">
-  <!-- Show Campground -->
   <div class="col-6">
-    <!-- Carousel Images -->
     <div
       id="campCarousel"
       class="carousel slide"
@@ -74,6 +72,11 @@
 
   <!-- Reviews -->
   <div class="col-6">
+      <!-- Show Campground -->
+      <% if(campground.geometry.coordinates.length) { %> 
+  <div id='map' class="mb-3" style='width: 636px; height: 300px;'></div>
+  <% } %> 
+
     <% if(currentUser) { %>
     <h2>Leave a Review</h2>
     <form
@@ -172,3 +175,11 @@
     <% } %>
   </div>
 </div>
+
+<!-- script for mapbox token since showMap.js does not have access to ejs -->
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>";
+  const campground = <%-JSON.stringify(campground)%>
+</script>
+
+<script src="/scripts/showMap.js"></script>

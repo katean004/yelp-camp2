@@ -37,3 +37,5 @@ npm install:
 - multer
 - cloudinary
 - multer-storage-cloudinary
+- @mapbox/mapbox-sdk
+
