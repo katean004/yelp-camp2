@@ -17,8 +17,8 @@
 ## Resources Used
 - Bootstrap
 - Starability
+- Cloudinary
 - Mapbox
-- Cloudinary 
 (Add links later)
 
 ## Dependencies 
