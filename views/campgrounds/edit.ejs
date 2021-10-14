@@ -80,6 +80,27 @@
         >
         <div class="invalid-feedback">Please enter campground description.</div>
       </div>
+      <!-- show images for deletion -->
+      <div class="mb-3">
+        <% campground.images.forEach(function(img, i){ %>
+        <img
+          src="<%=img.url%>"
+          alt=""
+          class="img-thumbnail"
+          style="height: 200px; width: 300px"
+        />
+        <div>
+          <input
+            class="form-check-inline"
+            type="checkbox"
+            name="deleteImages[]"
+            value="<%=img.filename%>"
+            id="image-<%=i%>"
+          />
+          <label for="image-<%=i%>">Delete</label>
+        </div>
+        <% }) %>
+      </div>
       <div class="mb-3">
         <button class="btn btn-info">Edit Campground</button>
       </div>
