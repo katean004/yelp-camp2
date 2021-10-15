@@ -11,10 +11,12 @@
 ## Description
 - Full Stack application that mimics Yelp in finding, adding, editing, and deleting campgrounds from all over the world. 
 - Utilizes MongoDB, Express, Node, and EJS Templating in MVC structure. 
-- Includes authentication (passport) and authorization for user login and data protection
+- Includes authentication (passport) and authorization for user login and data protection.
+- Uses Maps and Geocoding from Mapbox.
+- Common security issues including SQL Injections and sanitization.
 - Hosted on Heroku
 
-## Resources Used
+## Resources and Technologies Used
 - Bootstrap
 - Starability
 - Cloudinary
@@ -38,4 +40,6 @@ npm install:
 - cloudinary
 - multer-storage-cloudinary
 - @mapbox/mapbox-sdk
+- express-mongo-sanitize
+- sanitize-html
 

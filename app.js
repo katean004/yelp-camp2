@@ -14,6 +14,7 @@ const ExpressError = require("./utils/ExpressError");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
+const mongoSanitize = require("express-mongo-sanitize");
 
 // routes
 const campgroundRoutes = require("./routes/campgrounds");
@@ -43,13 +44,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 // serve public directory
 app.use(express.static(path.join(__dirname, "public")));
+// disable users from typing mongo keys such as $, . in query (prevents mongo injection)
+app.use(mongoSanitize());
+
 // express session setup
 const sessionConfig = {
+  name: "session",
   secret: "notgoodsecret",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
+    // secure: true,
     // cookie expires in a week
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7
