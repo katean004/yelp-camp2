@@ -75,13 +75,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// test auth
-app.get("/fakeuser", async (req, res) => {
-  const user = new User({ email: "colt@gmail.com", username: "colty" });
-  const newUser = await User.register(user, "password123");
-  res.send(newUser);
-});
-
 // use routes
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
