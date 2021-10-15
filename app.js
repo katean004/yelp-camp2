@@ -1,7 +1,9 @@
 // setup dotenv
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+// if (process.env.NODE_ENV !== "production") {
+//   require("dotenv").config();
+// }
+
+require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
@@ -15,6 +17,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
 
 // routes
 const campgroundRoutes = require("./routes/campgrounds");
@@ -63,6 +66,11 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(
+  helmet({
+    contentSecurityPolicy: false
+  })
+);
 
 // passport setup
 app.use(passport.initialize());
@@ -101,6 +109,6 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { err });
 });
 
-app.listen(3000, () => {
-  console.log("Serving on Port 3000!");
+app.listen(8080, () => {
+  console.log("Serving on Port 8080!");
 });

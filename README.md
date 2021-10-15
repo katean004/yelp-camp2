@@ -14,14 +14,13 @@
 - Includes authentication (passport) and authorization for user login and data protection.
 - Uses Maps and Geocoding from Mapbox.
 - Common security issues including SQL Injections and sanitization.
-- Hosted on Heroku
+- Hosted on Heroku with MongoDB Atlas
 
 ## Resources and Technologies Used
 - Bootstrap
 - Starability
 - Cloudinary
 - Mapbox
-(Add links later)
 
 ## Dependencies 
 npm install:
@@ -42,4 +41,5 @@ npm install:
 - @mapbox/mapbox-sdk
 - express-mongo-sanitize
 - sanitize-html
+- helmet
 
