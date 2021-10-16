@@ -3,11 +3,9 @@
 
 ## Table of Contents
   - [Description](#description)
+  - [Usage](#usage)
   - [Resources](#resources)
   - [Dependencies](#dependencies)
-
-## Walkthrough Video
-- https://drive.google.com/file/d/1k_PdSfMDnnxgt3ILmzccXH8BdugeJUvZ/view
 
 ## Description
 - Full Stack application that mimics Yelp in finding, adding, editing, and deleting campgrounds from all over the world. 
@@ -16,6 +14,9 @@
 - Uses Maps and Geocoding from Mapbox.
 - Common security issues including SQL Injections and sanitization.
 - Hosted on Heroku with MongoDB Atlas
+
+## Usage
+- npm start
 
 ## Resources
 - Bootstrap
