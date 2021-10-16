@@ -1,8 +1,9 @@
 # Yelp-Camp2
+![](https://i.gyazo.com/fda14ed66815c110ac3a3e7ccffad81a.jpg)
 
 ## Table of Contents
-  - [Walkthrough Video](#link-here)
   - [Description](#description)
+  - [Resources](#resources)
   - [Installation](#installation)
 
 ## Walkthrough Video
@@ -16,7 +17,7 @@
 - Common security issues including SQL Injections and sanitization.
 - Hosted on Heroku with MongoDB Atlas
 
-## Resources and Technologies Used
+## Resources
 - Bootstrap
 - Starability
 - Cloudinary
@@ -42,4 +43,5 @@ npm install:
 - express-mongo-sanitize
 - sanitize-html
 - helmet
+- connect-mongo
 

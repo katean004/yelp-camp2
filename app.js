@@ -18,6 +18,8 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/camps";
+const MongoStore = require("connect-mongo");
 
 // routes
 const campgroundRoutes = require("./routes/campgrounds");
@@ -25,7 +27,7 @@ const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
 
 // mongoose connection setup
-mongoose.connect("mongodb://localhost:27017/camps");
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -50,8 +52,22 @@ app.use(express.static(path.join(__dirname, "public")));
 // disable users from typing mongo keys such as $, . in query (prevents mongo injection)
 app.use(mongoSanitize());
 
+// change session store from default memory store to mongo store
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: "notgoodsecret"
+  }
+});
+
+store.on("error", function (e) {
+  console.log("session store error", e);
+});
+
 // express session setup
 const sessionConfig = {
+  store,
   name: "session",
   secret: "notgoodsecret",
   resave: false,
@@ -65,6 +81,7 @@ const sessionConfig = {
   }
 };
 app.use(session(sessionConfig));
+
 app.use(flash());
 app.use(
   helmet({
