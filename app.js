@@ -18,8 +18,9 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/camps";
 const MongoStore = require("connect-mongo");
+
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/camps";
 
 // routes
 const campgroundRoutes = require("./routes/campgrounds");
@@ -52,12 +53,14 @@ app.use(express.static(path.join(__dirname, "public")));
 // disable users from typing mongo keys such as $, . in query (prevents mongo injection)
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || "notgoodsecret";
+
 // change session store from default memory store to mongo store
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60,
   crypto: {
-    secret: "notgoodsecret"
+    secret
   }
 });
 
@@ -69,7 +72,7 @@ store.on("error", function (e) {
 const sessionConfig = {
   store,
   name: "session",
-  secret: "notgoodsecret",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {

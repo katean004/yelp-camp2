@@ -4,7 +4,7 @@
 ## Table of Contents
   - [Description](#description)
   - [Resources](#resources)
-  - [Installation](#dependencies)
+  - [Dependencies](#dependencies)
 
 ## Walkthrough Video
 - https://drive.google.com/file/d/1k_PdSfMDnnxgt3ILmzccXH8BdugeJUvZ/view
